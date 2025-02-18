@@ -1,0 +1,8 @@
+############### All models and their configurations are defined here
+object_detection:
+  ckpt: "./GroundingDINO/weights/groundingdino_swint_ogc.pth"
+  config_path: "./GroundingDINO/groundingdino/config/GroundingDINO_SwinT_OGC.py"
+  text_prompt: "all windows" # Input text prompt for multi modal object detection
+  box_threshold: 0.75 # Inputs to object detection model
+  text_threshold: 0.25 # Inputs to object detection model
+  device: "cuda:0"

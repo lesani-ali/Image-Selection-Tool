@@ -1,0 +1,5 @@
+data/*
+logs/*
+paths.txt
+test.py
+.vscode
