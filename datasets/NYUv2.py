@@ -9,6 +9,9 @@ from .Base import Base
 class NYUv2(Base):
     def __init__(self, data_path: str, filenames: List[str]):
         super(NYUv2, self).__init__(data_path, filenames)
+        self.depth_param1 = 351.3
+        self.depth_param2 = 1092.5
+        self.max_depth = 10 # Meter
 
     def __getitem__(self, index: int) -> Optional[np.ndarray]:
         line = self.filenames[index]
@@ -32,9 +35,11 @@ class NYUv2(Base):
         return image
 
     def load_depth(self, depth_path: str) -> np.ndarray:
-        depth = cv2.imread(depth_path)
-        depth = cv2.cvtColor(depth, cv2.COLOR_BGR2RGB)
-        return depth[:, :, 0]
+        depth = cv2.imread(depth_path, cv2.IMREAD_UNCHANGED).astype(np.float32)
+        depth_meter = self.depth_param1 / (self.depth_param2 - depth)
+        depth_meter[depth_meter > self.max_depth] = self.max_depth
+        depth_meter[depth_meter < 0] = 0
+        return depth_meter
 
     def save_outputs(self, output_dir: str, outputs) -> None:
         out_dir = os.path.join(output_dir, outputs['folder_name'])
