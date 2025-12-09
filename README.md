@@ -17,7 +17,7 @@ This project is a tool designed to select specific images based on the objects p
 
 2. Clone [Grounding DINO](https://github.com/IDEA-Research/GroundingDINO):
     ```bash
-    git@github.com:IDEA-Research/GroundingDINO.git
+    git clone git@github.com:IDEA-Research/GroundingDINO.git
     ```
 
 2. Create environment:
